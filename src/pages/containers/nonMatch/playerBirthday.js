@@ -8,7 +8,7 @@ import domtoimage from 'dom-to-image';
 import background from '../../../images/background.jpg'
 
 
-function Head2HeadTeams() {
+function PlayerBirthday() {
 
 
         const downloadPhoto=()=>{ 
@@ -23,7 +23,7 @@ function Head2HeadTeams() {
   return (
     <Container fluid >
     <Card style={{marginTop:.05*window.innerHeight+"px"}} border="dark" text="white">
-    <Card.Header style={{backgroundColor:"#0169d9",fontSize:"30px"}}>Team Vs. Team</Card.Header>
+    <Card.Header style={{backgroundColor:"#0169d9",fontSize:"30px"}}>Player Birthday</Card.Header>
     <Col md={12}>
          <Row style={{marginTop:.05*window.innerHeight+"px"}}>
             <Col md={6} >
@@ -85,4 +85,4 @@ function Head2HeadTeams() {
   );
 }
 
-export default Head2HeadTeams;
+export default PlayerBirthday;

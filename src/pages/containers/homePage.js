@@ -1,61 +1,59 @@
 import React  from 'react';
-import {Container,Col,Row,Card, Button} from 'react-bootstrap'
-
+import {Container,Col,Row, Button,Card} from 'react-bootstrap'
 
 function HomePage() {
 
   return (
     <Container fluid >
-        <Row style={{marginTop:.1*window.innerHeight+"px"}}>
-            <Col md={2}/>
+    <Card style={{marginTop:.05*window.innerHeight+"px"}} border="dark" text="white">
+    <Card.Header style={{backgroundColor:"#000",fontSize:"30px"}}>Home</Card.Header>
+    <Col md={12}>
 
-            <Col md={3} >
-                <Button border="primary" block size="lg" style={{height:.15*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/leagues')}}>
-                    Leagues
-                </Button>
-            </Col>
+    <Row style={{marginTop:.05*window.innerHeight+"px"}}>
+        <Col md={2}/>
+        <Col md={3} >
+            <Card>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/league')}}>
+            Leagues - Season Standing
+            </Button>
+            </Card>
+        </Col>
+        <Col md={2}/>
+        <Col md={3}>
+            <Card>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/inMatch')}}>
+            In-Match
+            </Button>
+            </Card>
+        </Col>
+    </Row>
 
-            <Col md={2}/>
+    <Row style={{marginTop:.05*window.innerHeight+"px"}}>
+        <Col md={2}/>
+        <Col md={3} >
+            <Card>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/head2head')}}>
+            Head-2-Head
+            </Button>
+            </Card>
+        </Col>
+        <Col md={2}/>
+        <Col md={3}>
+            <Card>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/nonMatch')}}>
+            Non-Match
+            </Button>
+            </Card>
+        </Col>
+    </Row>
 
-            <Col md={3}>
-                <Button border="primary" block size="lg" style={{height:.15*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/inMatch')}}>
-                    In-Match
-                </Button>
-            </Col>
-        </Row>
-
-        <Row style={{marginTop:.1*window.innerHeight+"px"}}>
-            <Col md={2}/>
-
-            <Col md={3}>
-                <Button border="primary" block size="lg"  style={{height:.15*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/teams')}}>
-                    Teams
-                </Button>
-            </Col>
-
-            <Col md={2}/>
-
-            <Col md={3}>
-                <Button border="primary" block size="lg"  style={{height:.15*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/players')}}>
-                    Players
-                </Button>
-            </Col>
-        </Row>
-
-        <Row style={{marginTop:.1*window.innerHeight+"px",marginLeft:0.12*window.innerHeight+"px",height:.15*window.innerHeight+"px"}} >
-            <Col md={4}/>
-
-            <Col md={3}>
-                <Button border="primary" block size="lg" style={{height:.15*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/head2head')}}>
-                    Head-2-Head
-                </Button>
-            </Col>
-
-
-        </Row>
+    <Row style={{marginTop:.05*window.innerHeight+"px"}}/>
+    </Col>
+    </Card>
+    <Row style={{marginTop:.05*window.innerHeight+"px"}}/>
 
     </Container>
   );
 }
 
-export default HomePage;
+export default HomePage ;

@@ -29,10 +29,10 @@ function Login() {
             localStorage.setItem("MatrixLiveInfo",JSON.stringify(res.data))
             if (res.data.IsAuthenticated === true){
                 window.location.assign('/home')
-            }else{
+            }
+            if (res.data.IsAuthenticated === false){
                 alert("You have to contact with IT to renew your deal")
             }
-            //let user = JSON.parse(localStorage.getItem('user'));
         }).catch((e)=>{
             alert("You have an invalid mail or password")
         })
@@ -42,7 +42,7 @@ function Login() {
         {/* <Parallax bgImage={Logo} style={{height:.94*window.innerHeight}} > */}
         <Row style={{marginTop:.25*window.innerHeight+"px"}} className="justify-content-md-center" >
             <Col md={6}>
-            <Card bg="light" border="primary">
+            <Card bg="light" border="dark">
                 <Card.Header>Login</Card.Header>
                 <Row>
                 <Col xs lg="5" style={{marginLeft:.015*window.innerWidth+"px",marginTop:.035*window.innerHeight+"px"}} >

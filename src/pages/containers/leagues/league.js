@@ -3,19 +3,19 @@ import {Container,Col,Row, Button,Card} from 'react-bootstrap'
 import StatImg from '../../../images/stat.png'
 import StatImg2 from '../../../images/stat2.png'
 
-function Head2Head() {
+function League() {
 
   return (
     <Container fluid >
     <Card style={{marginTop:.05*window.innerHeight+"px"}} border="dark" text="white">
-    <Card.Header style={{backgroundColor:"#000",textAlign:"center",fontSize:"30px"}}>Head-2-Head</Card.Header>
+    <Card.Header style={{backgroundColor:"#000",textAlign:"center",fontSize:"30px"}}>Leagues - Season Standing</Card.Header>
     <Col md={12}>
      <Row style={{marginTop:.1*window.innerHeight+"px"}}>
         <Col md={2}/>
 
         <Col md={3} >
             <Card>
-            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/head2head/teams')}}>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/league/teams')}}>
                 Teams
             </Button>
             <Card.Img variant="bottom" src={StatImg} style={{height:.2*window.innerHeight+"px"}} />
@@ -26,7 +26,7 @@ function Head2Head() {
 
         <Col md={3}>
             <Card>
-            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/head2head/players')}}>
+            <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/league/players')}}>
                 Players
             </Button>
             <Card.Img variant="bottom" src={StatImg2} style={{height:.2*window.innerHeight+"px"}} />
@@ -40,4 +40,4 @@ function Head2Head() {
   );
 }
 
-export default Head2Head;
+export default League;
