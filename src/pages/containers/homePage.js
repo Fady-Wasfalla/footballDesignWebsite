@@ -14,7 +14,7 @@ function HomePage() {
         <Col md={3} >
             <Card>
             <Button variant="dark" block size="lg" style={{height:.1*window.innerHeight+"px"}} onClick={()=>{window.location.assign('/league')}}>
-            Leagues - Season Standing
+            Leagues - Season Standings
             </Button>
             </Card>
         </Col>

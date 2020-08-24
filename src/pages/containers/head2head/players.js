@@ -1,6 +1,7 @@
-import React  from 'react';
-import {Container,Col,Row,Card, Button, Form} from 'react-bootstrap'
-import { Parallax } from "react-parallax";
+import React, { useState, useEffect }  from 'react';
+import {Container,Col,Row,Card, Button, Form } from 'react-bootstrap'
+import { MenuItem ,TextField } from '@material-ui/core'
+import axios from 'axios'
 import domtoimage from 'dom-to-image';
 
 
@@ -10,12 +11,165 @@ import background from '../../../images/background.jpg'
 
 function Head2HeadPlayers() {
 
+    const [clientLeagues,setclientLeagues]=useState([])
+    const [leagueId1, setleagueId1] = useState('');
+    const [leagueId2, setleagueId2] = useState('');
 
-        const downloadPhoto=()=>{ 
+    const [teamsleague1,setteamsleague1] = useState([])
+    const [teamsleague2,setteamsleague2] = useState([])
+
+    const [team1,setteam1]=useState("")
+    const [team2,setteam2]=useState("")
+    
+    useEffect(() => {
+        const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+        try{
+          axios({
+          method: 'post',
+          url: 'http://koramania.cloudapp.net/statsspider/live/liveClient',
+          headers: {
+            Authorization:MatrixLiveInfo.Token
+          },
+          params: {
+            clientId:MatrixLiveInfo.ClientId
+          }
+          }).then(
+          res => {
+            setclientLeagues(res.data.client)
+            }
+          ).catch((e)=>{
+        })
+        }
+        catch(e){
+          console.log(e)
+        }
+    }, [])
+
+    const leagueHandleChange1 = (event) => {
+        const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+        try{
+            axios({
+            method: 'post',
+            url: 'http://koramania.cloudapp.net/statsspider/api/getteamsbyleagueid',
+            headers: {
+              Authorization:MatrixLiveInfo.Token
+            },
+            params: {
+              clientId:MatrixLiveInfo.ClientId
+            },
+            data: {
+                "leagueId" :event.target.value,
+            }
+            }).then(
+            res => {
+                setteamsleague1(res.data.Teams)
+                console.log(res.data.Teams)
+                setteam1("")
+                
+            }
+            ).catch((e)=>{
+          })
+          }
+        catch(e){
+            console.log(e)
+        }
+        setleagueId1(event.target.value);
+      };
+
+      const leagueHandleChange2 = (event) => {
+        const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+        try{
+            axios({
+            method: 'post',
+            url: 'http://koramania.cloudapp.net/statsspider/api/getteamsbyleagueid',
+            headers: {
+              Authorization:MatrixLiveInfo.Token
+            },
+            params: {
+              clientId:MatrixLiveInfo.ClientId
+            },
+            data: {
+                "leagueId" :event.target.value,
+            }
+            }).then(
+            res => {
+                setteamsleague2(res.data.Teams)
+                setteam2("")
+            }
+            ).catch((e)=>{
+          })
+          }
+        catch(e){
+            console.log(e)
+        }
+        setleagueId2(event.target.value);
+      };
+
+
+      const teamHandleChange1 = (event) => {
+        const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+        try{
+            axios({
+            method: 'post',
+            url: 'http://koramania.cloudapp.net/statsspider/api/GetTeamLeagueStats',
+            headers: {
+              Authorization:MatrixLiveInfo.Token
+            },
+            params: {
+              clientId:MatrixLiveInfo.ClientId
+            },
+            data: {
+                "leagueId" :leagueId1,
+                "teamid":event.target.value
+            }
+            }).then(
+            res => {
+                console.log(res.data)
+            }
+            ).catch((e)=>{
+          })
+          }
+        catch(e){
+            console.log(e)
+        }
+        setteam1(event.target.value);
+      };
+
+      const teamHandleChange2 = (event) => {
+        const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+        try{
+            axios({
+            method: 'post',
+            url: 'http://koramania.cloudapp.net/statsspider/api/GetTeamLeagueStats',
+            headers: {
+              Authorization:MatrixLiveInfo.Token
+            },
+            params: {
+              clientId:MatrixLiveInfo.ClientId
+            },
+            data: {
+                "leagueId" :leagueId2,
+                "teamid":event.target.value
+            }
+            }).then(
+            res => {
+                console.log(res.data)
+            }
+            ).catch((e)=>{
+          })
+          }
+        catch(e){
+            console.log(e)
+        }
+        setteam2(event.target.value);
+      };
+
+
+    const downloadPhoto=()=>{ 
         domtoimage.toJpeg(document.getElementById('id'), { quality: 0.95 })
         .then(function (dataUrl) {
         var link = document.createElement('a');
-        link.download = 'MatrixLive_####.jpeg';
+        link.download = 'MatrixLive_TeamVsTeam.jpeg';
         link.href = dataUrl;
         link.click();
         });
@@ -35,24 +189,145 @@ function Head2HeadPlayers() {
                 </Col>
                 <Form>
 
-                    <Row>
+                    <Row style={{marginTop:"10px",textAlign:"center"}}>
+                        
+                        <Col md={6}>
+                           <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                               <h3> Team 1 </h3>
+                            </Col>
+                           </Row>
 
-                    <Col >
-                    <Form.Group >
-                        <Form.Label>Input 1</Form.Label>
-                        <Form.Control type="input" placeholder="Enter email" />
-                    </Form.Group>
-                    </Col>
+                            <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                                <TextField
+                                    id="league1"
+                                    select
+                                    variant="outlined"
+                                    label="League 1"
+                                    value={leagueId1}
+                                    onChange={leagueHandleChange1}
+                                    helperText="Select League"
+                                    >
+                                    {      
+                                    clientLeagues.map((e,index)=>{
+                                            return (
+                                            <MenuItem value={clientLeagues[index].LeagueId}  key={clientLeagues[index].LeagueId}>
+                                                {clientLeagues[index].LeagueName} 
+                                            </MenuItem>
+                                                )
+                                            }
+                                            )            
+                                    }
+                                </TextField>
+                            </Col>
+                           </Row>
+                            
+                            <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                                <TextField
+                                        id="team1"
+                                        select
+                                        variant="outlined"
+                                        label="Team 1"
+                                        value={team1}
+                                        // onPointerEnter={()=>{
+                                        //     if (leagueId1===""){
+                                        //         alert("you have to choose which league first")
+                                        //     }
+                                        // }}
+                                        onChange={teamHandleChange1}
+                                        helperText="Select League"
+                                    >
+                                    {      
+                                    teamsleague1.map((e,index)=>{
+                                            return (
+                                            <MenuItem value={teamsleague1[index].TeamId}  key={teamsleague1[index].TeamName}>
+                                                <img src={"http://koramania.cloudapp.net/FBMSImages/"+teamsleague1[index].TeamLogoSmall}
+                                                alt={teamsleague1[index].TeamLogoSmall} width={25} height={25} style={{marginRight:"5px"}} />
+                                                {teamsleague1[index].TeamName} 
+                                            </MenuItem>
+                                                )
+                                            }
+                                            )            
+                                    }
+                                </TextField>
+                            </Col>
+                            </Row>
 
-                    <Col>
-                    <Form.Group >
-                        <Form.Label>Input 2</Form.Label>
-                        <Form.Control type="input" placeholder="Enter email" />
-                    </Form.Group>
-                    </Col>
+                            
+                           
+                            
+                        </Col>
+
+                        <Col md={6}>
+                            <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                                <h3> Team 2 </h3>
+                            </Col>
+                            </Row>
+
+                            <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                                <TextField
+                                id="league2"
+                                select
+                                variant="outlined"
+                                label="League 2"
+                                value={leagueId2}
+                                onChange={leagueHandleChange2}
+                                helperText="Select League"
+                                >
+                                {      
+                                clientLeagues.map((e,index)=>{
+                                        return (
+                                        <MenuItem value={clientLeagues[index].LeagueId}  key={clientLeagues[index].LeagueId}>
+                                            {clientLeagues[index].LeagueName} 
+                                        </MenuItem>
+                                            )
+                                        }
+                                        )            
+                                }
+                                </TextField>
+                            </Col>
+                            </Row>
+
+
+                            <Row style={{marginTop:"10px",textAlign:"center"}}>
+                            <Col>
+                                <TextField
+                                    id="team2"
+                                    select
+                                    variant="outlined"
+                                    label="Team 2"
+                                    value={team2}
+                                    onChange={teamHandleChange2}
+                                    // onPointerEnter={()=>{
+                                    //     if (leagueId2===""){
+                                    //         alert("you have to choose which league first")
+                                    //     }
+                                    // }}
+                                    helperText="Select League"
+                                    >
+                                    {      
+                                    teamsleague2.map((e,index)=>{
+                                            return (
+                                            <MenuItem value={teamsleague2[index].TeamId}  key={teamsleague2[index].TeamName}>
+                                                <img src={"http://koramania.cloudapp.net/FBMSImages/"+teamsleague2[index].TeamLogoSmall}
+                                                alt={teamsleague2[index].TeamLogoSmall} width={25} height={25} style={{marginRight:"5px"}} />
+                                                {teamsleague2[index].TeamName} 
+                                            </MenuItem>
+                                                )
+                                            }
+                                            )            
+                                    }
+                                </TextField>
+                            </Col>
+                            </Row>
+                        </Col>
 
                     </Row>
-
+                    
                 </Form>
 
                 </Card.Body>
@@ -67,13 +342,13 @@ function Head2HeadPlayers() {
                     backgroundColor: "black",
                     height: 1}} />
                 <Card >
-                <div style={{height:"auto"}} id="id"> 
-                 <Parallax bgImage={background} >
-                    <br/><br/><br/><br/><br/><br/><br/>
-                    Image
-                    <br/><br/><br/><br/><br/><br/><br/>
-                 </Parallax>
-                 </div>
+                <div id="id" style={{position:"relative",width:"880px",minHeight:"250px",backgroundImage:"url(" + background +")"}}> 
+                <Row style={{marginTop:"10px"}}>
+                <Col md={12}>
+                    
+                </Col>
+                </Row>
+                </div>
                 </Card>
             </Col>
         </Row>

@@ -24,36 +24,6 @@ function LeagueTeams() {
     const [fontFamilyType,setfontFamilyType]=useState(fontFamilyTypes[0])
 
 
-  const handleChange = (event) => {
-    const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
-    try{
-        axios({
-        method: 'post',
-        url: 'http://koramania.cloudapp.net/statsspider/api/getseasonstandings',
-        headers: {
-          Authorization:MatrixLiveInfo.Token
-        },
-        params: {
-          clientId:MatrixLiveInfo.ClientId
-        },
-        data: {
-            "leagueId" :event.target.value,
-            "teamtype": 0 // what is teamtype
-        }
-        }).then(
-        res => {
-             setLeague(res.data.SeasonStandings)
-          }
-        ).catch((e)=>{
-      })
-      }
-    catch(e){
-        console.log(e)
-    }
-    setleagueId(event.target.value);
-  };
-
-
 
     useEffect(() => {
         const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
@@ -89,12 +59,36 @@ function LeagueTeams() {
         link.href = dataUrl;
         link.click();
         });
-      //   html2canvas(document.getElementById('id')).then(function(canvas) {
-      //     let image = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");  
-      //     console.log(image)
-      //     window.location.href=image;
-      // });
     }
+
+    const handleChange = (event) => {
+      const MatrixLiveInfo = JSON.parse(localStorage.getItem("MatrixLiveInfo"))
+      try{
+          axios({
+          method: 'post',
+          url: 'http://koramania.cloudapp.net/statsspider/api/getseasonstandings',
+          headers: {
+            Authorization:MatrixLiveInfo.Token
+          },
+          params: {
+            clientId:MatrixLiveInfo.ClientId
+          },
+          data: {
+              "leagueId" :event.target.value,
+              "teamtype": 0 
+          }
+          }).then(
+          res => {
+               setLeague(res.data.SeasonStandings)
+            }
+          ).catch((e)=>{
+        })
+        }
+      catch(e){
+          console.log(e)
+      }
+      setleagueId(event.target.value);
+    };
     
   return (
     <Container fluid >
@@ -239,7 +233,7 @@ function LeagueTeams() {
                                   <Col md={12}>
                                   <Row  style={{fontSize:fontSizeInp+"px"}}>
                                       <Col md={4} > 
-                                        <img src={"http://koramania.cloudapp.net/FBMSImages/"+League[index].TeamLogo}
+                                        <img src={"http://koramania.cloudapp.net/FBMSImages/"+League[index].TeamLogo} 
                                         alt={League[index].TEAMNAME} width={logoSize} height={logoSize} style={{marginRight:"5px"}} />
                                         {League[index].TEAMNAME} 
                                       </Col>

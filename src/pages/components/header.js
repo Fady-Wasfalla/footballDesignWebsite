@@ -9,10 +9,10 @@ function Header() {
     <Nav className="mr-auto">
       
       <NavDropdown title="Leagues - Season Standing" id="league" >
-        <NavDropdown.Item href="/league" >Leagues - Season Standing</NavDropdown.Item>
+        <NavDropdown.Item href="/league" >Leagues - Season Standings</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="/league/teams">Teams</NavDropdown.Item>
-        <NavDropdown.Item href="/league/players">Players</NavDropdown.Item>
+        <NavDropdown.Item href="/league/teams">Season Standings</NavDropdown.Item>
+        <NavDropdown.Item href="/league/players">Top Soccers</NavDropdown.Item>
       </NavDropdown>
 
       <NavDropdown title="In-Match" id="inMatch">

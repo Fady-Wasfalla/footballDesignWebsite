@@ -1,6 +1,6 @@
 import React  from 'react';
 import {Container,Col,Row,Card, Button, Form} from 'react-bootstrap'
-import { Parallax } from "react-parallax";
+
 import domtoimage from 'dom-to-image';
 
 
@@ -67,12 +67,8 @@ function MatchAppointments() {
                     backgroundColor: "black",
                     height: 1}} />
                 <Card >
-                <div style={{height:"auto"}} id="id"> 
-                 <Parallax bgImage={background} >
-                    <br/><br/><br/><br/><br/><br/><br/>
-                    Image
-                    <br/><br/><br/><br/><br/><br/><br/>
-                 </Parallax>
+                <div id="id" style={{position:"relative",width:"880px",minHeight:"250px",backgroundImage:"url(" + background +")"}}> 
+                
                  </div>
                 </Card>
             </Col>
